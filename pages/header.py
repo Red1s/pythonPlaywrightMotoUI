@@ -21,3 +21,6 @@ class Header(BasePage):
 
     def ensure_avatar_circle_is_visible(self):
         expect(self.header_avatar_img().first).to_be_visible()
+
+    def click_log_in_page(self):
+        self.page.get_by_role('button', name='Log in').click()
