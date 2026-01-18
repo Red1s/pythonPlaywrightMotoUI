@@ -1,3 +1,4 @@
+import allure
 from playwright.sync_api import Page, expect
 from pages.base_page import BasePage
 from settings import BASE_URL
@@ -11,8 +12,10 @@ class SignUpPage(BasePage):
         super().__init__(page)
         self.page = page
 
+    @allure.step("Verification URL and UI")
     def sign_in_page_should_be_opened(self):
         self.expect_url(self.PATH_SIGN_UP)
-        expect(
-            self.page.get_by_role("button", name="Sign up now")
-        ).to_be_visible()
+        with allure.step("And additional verification on the UI (Looking for the button 'Sign up now')"):
+            expect(
+                self.page.get_by_role("button", name="Sign up now")
+            ).to_be_visible()

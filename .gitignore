@@ -1,4 +1,6 @@
+.idea
 venv
 .env
 test_auth.py
-
+results
+allyre-results

@@ -29,8 +29,5 @@ def forget_pass(page):
     return ForgotPasswordPage(page)
 
 @pytest.fixture
-def logged_in_user(page):
-    login = LogInPage(page)
-    login.open_login()
-    login.auth(LOGIN, PASSWORD)
-    return Header(page)
+def logged_in_user(auth):
+    auth.login_user(LOGIN, PASSWORD)
