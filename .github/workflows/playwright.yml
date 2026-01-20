@@ -28,7 +28,7 @@ jobs:
           PASSWORD: ${{ secrets.E2E_PASSWORD }}
           EMAIL_FOR_SEND_TEST: ${{ secrets.EMAIL_FOR_SEND_TEST }}
         run: |
-          docker-compose up --build --exit-code-from regression || true
+          docker compose up --build --exit-code-from regression || true
 
       # Генерируем Allure-отчёт (в контейнере)
       - name: Generate Allure report
