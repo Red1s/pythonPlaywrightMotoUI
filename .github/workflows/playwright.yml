@@ -34,10 +34,10 @@ jobs:
       - name: Prepare Allure directories
         if: always()
         # 3.1 We guarantee the availability of the folder
-        # 3.2 Ensure Allure directories are writable for any container user
+        # 3.2 Allow Allure container to write the HTML report
         run: |
           mkdir -p allure-results allure-report 
-          chmod -R 777 allure-results allure-report
+          chmod -R a+rwx allure-report
 
       # 4 Generate Allure report from allure-results
       # Uses a dedicated Allure container (no Java in test image)
