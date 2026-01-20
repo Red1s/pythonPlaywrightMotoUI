@@ -11,5 +11,5 @@ services:
     working_dir: /usr/workspace
     volumes:
       - .:/usr/workspace #All project content will be placed in this path
-    env_file: #Here we establish a local connection, since CI will still transfer the variables. workflows.yml
-      - .env
+#    env_file: #Hide it in CI
+#      - .env

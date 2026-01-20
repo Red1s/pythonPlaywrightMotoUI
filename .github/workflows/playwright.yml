@@ -15,12 +15,12 @@ jobs:
     timeout-minutes: 60
 
     steps:
-      # Забираем код
+      # Get the code
       - name: Checkout repository
         uses: actions/checkout@v5
 
-      # Запускаем тесты через docker-compose
-      # || true — чтобы отчёт собирался даже при падении тестов
+      # Run tests via docker-compose
+      # || true — to compile the report even if the tests fail
       - name: Run UI tests via docker-compose
         env:
           BASE_URL: ${{ secrets.BASE_URL }}
@@ -30,14 +30,14 @@ jobs:
         run: |
           docker compose up --build --exit-code-from regression || true
 
-      # Генерируем Allure-отчёт (в контейнере)
+      # Generate Allure report (in container)
       - name: Generate Allure report
         if: always()
         run: |
           docker compose run regression /bin/sh -c \
             "allure generate allure-results --clean -o allure-report"
 
-      # Деплой Allure в GitHub Pages (через CI_TOKEN)
+      # Deploy Allure in GitHub Pages (through CI_TOKEN)
       - name: Deploy Allure to GitHub Pages
         if: always()
         uses: JamesIves/github-pages-deploy-action@v4
