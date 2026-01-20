@@ -15,11 +15,11 @@ jobs:
     timeout-minutes: 60
 
     steps:
-      # Get the code
+      # 1 Get the code
       - name: Checkout repository
         uses: actions/checkout@v5
 
-      # Run tests via docker-compose
+      # 2 Run tests via docker-compose
       # || true — to compile the report even if the tests fail
       - name: Run UI tests via docker-compose
         env:
@@ -30,7 +30,16 @@ jobs:
         run: |
           docker compose up --build --exit-code-from regression || true
 
-      # 3. Generate Allure report from allure-results
+       # 3
+      - name: Prepare Allure directories
+        if: always()
+        # 3.1 We guarantee the availability of the folder
+        # 3.2 Ensure Allure directories are writable for any container user
+        run: |
+          mkdir -p allure-results allure-report 
+          chmod -R 777 allure-results allure-report
+
+      # 4 Generate Allure report from allure-results
       # Uses a dedicated Allure container (no Java in test image)
       - name: Generate Allure report
         if: always()
@@ -41,7 +50,7 @@ jobs:
             frankescobar/allure-docker-service \
             allure generate /allure-results --clean -o /allure-report
 
-      # Deploy Allure in GitHub Pages (through CI_TOKEN)
+      # 5 Deploy Allure in GitHub Pages (through CI_TOKEN)
       - name: Deploy Allure to GitHub Pages
         if: always()
         uses: JamesIves/github-pages-deploy-action@v4
