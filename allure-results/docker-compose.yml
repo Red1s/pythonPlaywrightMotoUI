@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  regression:
+    #Building a Docker image from a Dockerfile It could be simpler: "build: .",
+    #since it searches for the Dockerfile in "." itself.
+    build:
+      context: ..
+      dockerfile: ../Dockerfile
+    container_name: playwright_tests
+    working_dir: /usr/workspace
+
+    volumes:
+      - .:/usr/workspace #All project content will be placed in this path
+    command: >
+      /bin/sh -c
+      "pytest -sv --alluredir=allure-results"
+    environment:
+      - LOGIN=${LOGIN}
+      - PASSWORD=${PASSWORD}
+      - BASE_URL=${BASE_URL}
+      - EMAIL_FOR_SEND_TEST=${EMAIL_FOR_SEND_TEST}
