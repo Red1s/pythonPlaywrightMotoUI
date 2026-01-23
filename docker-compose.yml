@@ -4,9 +4,7 @@ services:
   regression:
     #Building a Docker image from a Dockerfile It could be simpler: "build: .",
     #since it searches for the Dockerfile in "." itself.
-    build:
-      context: ..
-      dockerfile: ../Dockerfile
+    build: .
     container_name: playwright_tests
     working_dir: /usr/workspace
 

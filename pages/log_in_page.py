@@ -81,8 +81,8 @@ class LogInPage(BasePage):
 
     @allure.step("Press the button 'Forgot the password?' on the page 'Log in'")
     def click_btn_forgot_password(self):
-        self.page.get_by_role("link", name="Forgot the password?").click()
+        self.page.locator("a[href='/auth/recover-password']").click()
 
     @allure.step("Press the button 'Sing up?' on the page 'Log in'")
     def click_btn_sign_in(self):
-        self.page.get_by_role("link", name="Sign up").click()
+        self.page.locator("a[href='/auth/register']").click()

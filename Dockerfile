@@ -8,5 +8,9 @@ WORKDIR /usr/workspace
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
+# 4. Setup Playwright with Chromium only
+RUN playwright install chromium \
+ && playwright install-deps chromium
+
 # 5. Copy the entire project into the container
 COPY . .
