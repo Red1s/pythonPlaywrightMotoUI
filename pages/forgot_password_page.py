@@ -44,7 +44,7 @@ class ForgotPasswordPage(BasePage):
 
     @allure.step("UI forgot password approves: 'The email has been sent'")
     def mail_has_been_sent_for_forgot_password(self):
-        expect(self.page.get_by_text("The email has been sent")).to_be_visible()
+        expect(self.page.get_by_text("The email has been sent (operates once every 10 minutes)")).to_be_visible()
 
     @allure.step("We see a notification that this user does not exist"
                  " and cannot be sent a password recovery email")

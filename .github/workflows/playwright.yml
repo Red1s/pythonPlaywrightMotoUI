@@ -55,7 +55,13 @@ jobs:
           ref: gh-pages
           path: gh-pages
 
-      # 4 Restore Allure history (if exists)
+      # 4 Allow GitHub Actions to write to allure-results
+      - name: Fix permissions for allure-results
+        if: always()
+        run: |
+          sudo chmod -R 777 allure-results || true
+
+      # 5 Restore Allure history (if exists)
       - name: Restore Allure history
         if: always()
         run: |
@@ -64,7 +70,7 @@ jobs:
             cp -r gh-pages/history/* allure-results/history/
           fi
 
-      # 5 Prepare Allure report directory
+      # 6 Prepare Allure report directory
       # We only grant write permissions to allure-report
       - name: Prepare Allure report directory
         if: always()
@@ -72,7 +78,7 @@ jobs:
           mkdir -p allure-report
           chmod -R a+rwx allure-report
 
-      # 6 Generate Allure report from allure-results
+      # 7 Generate Allure report from allure-results
       # Uses a dedicated Allure container (no Java in test image)
       - name: Generate Allure report
         if: always()
@@ -83,7 +89,7 @@ jobs:
             frankescobar/allure-docker-service \
             allure generate /allure-results --clean -o /allure-report
 
-      # 7 Deploy Allure in GitHub Pages (through CI_TOKEN)
+      # 8 Deploy Allure in GitHub Pages (through CI_TOKEN)
       - name: Deploy Allure to GitHub Pages
         if: always()
         uses: JamesIves/github-pages-deploy-action@v4
