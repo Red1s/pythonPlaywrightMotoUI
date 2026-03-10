@@ -4,10 +4,5 @@ venv
 test_auth.py
 test_api_easy.py
 results
-<<<<<<< Updated upstream
-allyre-results
-=======
 allure-results
 test-results
-
->>>>>>> Stashed changes
