@@ -71,14 +71,14 @@ jobs:
           mkdir -p allure-report
           chmod -R a+rwx allure-report
 
-      # Добавляем только дату и время для графика Trend
+      # Add only the date and time for the Trend chart
       - name: Add Date and Time to Allure Trend
         if: always()
         run: |
-          # Получаем текущую дату и время
+        # Get the current date and time
           CURRENT_DATE=$(date +'%d.%m.%Y %H:%M')
           
-          # Записываем её в настройки Allure
+        # We record it in the Allure settings.
           cat <<EOF > allure-results/executor.json
           {
             "buildName": "${CURRENT_DATE}",
