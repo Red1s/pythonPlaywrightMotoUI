@@ -75,10 +75,10 @@ jobs:
       - name: Add Date and Time to Allure Trend
         if: always()
         run: |
-        # Get the current date and time
+          # Get the current date and time
           CURRENT_DATE=$(date +'%d.%m.%Y %H:%M')
           
-        # We record it in the Allure settings.
+          # We record it in the Allure settings.
           cat <<EOF > allure-results/executor.json
           {
             "buildName": "${CURRENT_DATE}",
